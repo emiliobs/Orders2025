@@ -20,8 +20,4 @@
     <ProjectReference Include="..\Orders2025.Shared\Orders2025.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UnitsOfWork\Implementationes\" />
-  </ItemGroup>
-
 </Project>
