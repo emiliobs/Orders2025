@@ -28,6 +28,9 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped<ICountriesUnitOfWork, CountriesUnitOfWork>();
 builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 
+builder.Services.AddScoped<IStatesUnitOfWork, StatesUnitOfWork>();
+builder.Services.AddScoped<IStatesRepository, StatesRepository>();
+
 var app = builder.Build();
 
 SeedData(app);
