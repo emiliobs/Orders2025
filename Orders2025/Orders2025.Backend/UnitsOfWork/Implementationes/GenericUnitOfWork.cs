@@ -1,5 +1,6 @@
 ﻿using Orders2025.Backend.Repositories.Interfaces;
 using Orders2025.Backend.UnitsOfWork.Interfaces;
+using Orders2025.Shared.DTOs;
 using Orders2025.Shared.Responses;
 
 namespace Orders2025.Backend.UnitsOfWork.Implementationes;
@@ -22,4 +23,8 @@ public class GenericUnitOfWork<T> : IGenericUnitOfWork<T> where T : class
     public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync() => await _repository.GetAsync();
 
     public virtual async Task<ActionResponse<T>> UpdateAsync(T entity) => await _repository.UpdateAsync(entity);
+
+    public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination) => await _repository.GetAsync(pagination);
+
+    public virtual async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination) => await _repository.GetTotalRecordsAsync(pagination);
 }

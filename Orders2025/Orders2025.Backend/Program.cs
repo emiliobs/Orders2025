@@ -38,11 +38,10 @@ SeedData(app);
 void SeedData(WebApplication app)
 {
     var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
-    using (var scope = scopedFactory!.CreateScope())
-    {
-        var service = scope.ServiceProvider.GetService<SeedDb>();
-        service!.SeedDbAsync().Wait();
-    }
+
+    using var scope = scopedFactory!.CreateScope();
+    var service = scope.ServiceProvider.GetService<SeedDb>();
+    service!.SeedDbAsync().Wait();
 }
 
 // Configure the HTTP request pipeline.

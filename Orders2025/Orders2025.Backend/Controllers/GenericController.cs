@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Orders2025.Backend.UnitsOfWork.Interfaces;
+using Orders2025.Shared.DTOs;
 
 namespace Orders2025.Backend.Controllers
 {
@@ -10,6 +11,28 @@ namespace Orders2025.Backend.Controllers
         public GenericController(IGenericUnitOfWork<T> unitOfWork)
         {
             this._unitOfWork = unitOfWork;
+        }
+
+        [HttpGet("paginated")]
+        public virtual async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
+        {
+            var action = await _unitOfWork.GetAsync(pagination);
+            if (action.WasSuccess)
+            {
+                return Ok(action.Result);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet("totalRecords")]
+        public virtual async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
+        {
+            var action = await _unitOfWork.GetTotalRecordsAsync(pagination);
+            if (action.WasSuccess)
+            {
+                return Ok(action.Result);
+            }
+            return BadRequest();
         }
 
         [HttpGet]

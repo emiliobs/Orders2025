@@ -1,4 +1,5 @@
-﻿using Orders2025.Shared.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Orders2025.Shared.Entities;
 
 namespace Orders2025.Backend.Data;
 
@@ -14,11 +15,18 @@ public class SeedDb
     public async Task SeedDbAsync()
     {
         await this._context.Database.EnsureCreatedAsync();
+        await CheckCountriesFullAsync();
         await this.CheckCountriesAsync();
         await this.CheckCategoriesAsync();
-        //        await this.CheckProductsAsync();
-        //        await this.CheckRolesAsync();
-        //        await this.CheckUserAsync("1010", "Juan", "Perez", "
+    }
+
+    private async Task CheckCountriesFullAsync()
+    {
+        if (!_context.Countries.Any())
+        {
+            var countriesSQLScript = File.ReadAllText("Data\\CountriesStatesCities.sql");
+            await _context.Database.ExecuteSqlRawAsync(countriesSQLScript);
+        }
     }
 
     private async Task CheckCategoriesAsync()
